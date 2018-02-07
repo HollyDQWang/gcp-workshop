@@ -76,3 +76,58 @@ You will also need to download and install [Node.js 8](https://nodejs.org).
 
 After that, you should be all set to continue as if you were running in the Cloud Shell in the instructions above.
 
+## WORKSHOP: Writing a Cloud Translation Service in Node.js
+
+### Description
+
+This workshop will take you through building a Google Translate-like web service
+using the Google Cloud Translate API and Node.js. You'll be able to launch your
+app on Google App Engine (GAE) to deploy it to the world!
+
+### Install Dependencies
+
+Navigate to the `gae-translate` directory in your terminal:
+
+```sh
+cd gae-translate
+```
+
+Then, run `npm install` (`npm` is Node's package manager) to install the
+dependencies you'll need for this application:
+
+```sh
+npm install # This installs dependencies, such as the Google Translate API, as specified by the package.json file in this directory.
+```
+
+### Run the server
+
+We've already provided most of the code for you. Start the application by typing the following at the command line:
+
+```sh
+node server.js
+```
+
+This starts a long-running application that will serve browser requests on port 8080 of the local machine. To see what this looks like, click the "Web Preview" button in the top right of your cloud shell (outlined in red in the below image) -- which will automatically open up a new tab showing your running web app.
+
+![web preview](./doc/images/cloud-shell-top-bar.png)
+
+(If you have the menu on the left of the screen open, you will have to minimize it before you can see this icon.)
+
+Though barebones, the interface should seem [pretty familiar](https://translate.google.com/). However, there's only two languages in the drop-down menu -- English and Spanish. This is because the server implementation is incomplete. Open up `server.js` and take a look at the code. See if you can fill in the missing part of the code (the part that fetches languages), using the other portions of the code as an example!
+
+_Hint:_ Using your browser's developer console can be helpful for figuring out what exactly is happening under the hood. In Chrome, you can open it by right-clicking anywhere on the web page, clicking, "Inspect", and then changing to the "Sources" or "Network" tab in the console.
+
+### Deploy the application
+
+Once you've filled up the missing part and tinkered around with the code, it's time to deploy the application on Google App Engine. Simply type the following command:
+
+```sh
+gcloud app deploy
+```
+
+Feel free to pick any region here.
+
+It'll take a few minutes, but in the end you'll see your application deployed to a real production environment!
+
+__Why this works:__ A configuration file named `app.yaml` sits in your working directory. This is the config file used for Google App Engine. It contains just enough information for App Engine to know that you want to use Node.js (`runtime`) on App Engine Flex, the Docker-based version of App Engine (`flex`). See [this page](https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml) for more details.
+
