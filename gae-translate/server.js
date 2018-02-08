@@ -58,10 +58,30 @@ app.get('/list-languages', function handleListLanguages(request, response) {
    * languages. Docs:
    * https://cloud.google.com/nodejs/docs/reference/translate/1.1.x/Translate
    */
-  response.send([
-    { code: 'en', name: 'English' },
-    { code: 'es', name: 'Spanish' }
-  ]);
+  const Translate = require('@google-cloud/translate');
+
+// Creates a client
+const translate = new Translate();
+
+// Lists available translation language with their names in English (the default).
+translate
+  .getLanguages()
+  .then(results => {
+  for (i in range(len(results))) {
+    const languages = results[i];
+
+    console.log('Languages:');
+    languages.forEach(language => console.log(language));
+  })
+  .catch(err => {
+    console.error('ERROR:', err);
+  });
+});
+//   response.send([
+//     { code: 'en', name: 'English' },
+//     { code: 'es', name: 'Spanish' },
+//     { code: 'jp', name: 'Japanese' },
+//   ]);
 });
 
 // Determine the TCP port number to listen on from the environment, defaulting to 8080.
